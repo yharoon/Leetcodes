@@ -39,4 +39,17 @@ Constraints:
 class Solution:
 	def uniquePaths(self, m: int, n: int) -> int:
 
-		
+		dp = [[0 for i in range(m+1)] for j in range(n+1)]
+
+		def solve(rows: int, cols: int):
+
+			if (rows == 1) or (cols == 1):
+				dp[rows][cols] = 1
+				return 1
+
+			if (dp[rows][cols] == 0):
+				dp[rows][cols] = solve(rows-1, cols) + solve(rows, cols-1)
+
+			return dp[rows][cols]
+
+		return solve(n,m)
